@@ -1,0 +1,31 @@
+spring:
+  cloud:
+    stream:
+      default:
+        producer:
+          error-channel-enabled: true
+      kafka:
+        binder:
+          brokers: localhost:9092
+          auto-create-topics: true
+          min-partition-count: 3
+          replication-factor: 1
+          configuration:
+            acks: -1
+#            retries: 10
+#            retry.backoff.ms: 500
+#            reconnect.backoff.max.ms: 30000
+#            delivery.timeout.ms: 60000
+
+        bindings:
+          my-prod-input:
+            consumer:
+              auto-commit-offset: false
+              destination-is-pattern: true
+
+      bindings:
+        my-prod-input:
+          destination: test-prod.*-topic
+          group: test-prod-group
+          consumer:
+            batch-mode: true
