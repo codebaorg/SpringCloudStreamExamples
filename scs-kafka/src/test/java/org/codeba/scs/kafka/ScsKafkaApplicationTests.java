@@ -7,8 +7,6 @@ import org.springframework.cloud.stream.binding.BinderAwareChannelResolver;
 import org.springframework.integration.support.MessageBuilder;
 import org.springframework.messaging.Message;
 
-import java.io.IOException;
-
 @SpringBootTest
 class ScsKafkaApplicationTests {
 
@@ -25,7 +23,7 @@ class ScsKafkaApplicationTests {
     }
 
     @Test
-    void prodTest() throws IOException {
+    void prodTest() {
         // send message
         for (int i = 0; i < 100; i++) {
             String topic = "test-prod" + i + "-topic";
@@ -33,16 +31,6 @@ class ScsKafkaApplicationTests {
             final Message<MyMessage> message = MessageBuilder.withPayload(myMessage).build();
             channelResolver.resolveDestination(topic).send(message);
         }
-        System.in.read();
-    }
-
-    @Test
-    void sendExceptionTest() {
-        // send message
-        String topic = "test-prodqiao-topic";
-        final MyMessage myMessage = new MyMessage("hello world", 2024);
-        final Message<MyMessage> message = MessageBuilder.withPayload(myMessage).build();
-        channelResolver.resolveDestination(topic).send(message);
     }
 
 }

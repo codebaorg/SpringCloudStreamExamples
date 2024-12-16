@@ -2,4 +2,4 @@ spring:
   application:
     name: scs-kafka
   profiles:
-    active: dev
+    active: prod

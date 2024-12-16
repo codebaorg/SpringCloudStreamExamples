@@ -4,18 +4,16 @@ spring:
       default:
         producer:
           error-channel-enabled: true
+
       kafka:
         binder:
           brokers: localhost:9092
           auto-create-topics: true
           min-partition-count: 3
-          replication-factor: 1
+          replication-factor: 3
           configuration:
             acks: -1
-#            retries: 10
-#            retry.backoff.ms: 500
-#            reconnect.backoff.max.ms: 30000
-#            delivery.timeout.ms: 60000
+            reconnect.backoff.max.ms: 120000
 
         bindings:
           my-prod-input:
@@ -25,7 +23,7 @@ spring:
 
       bindings:
         my-prod-input:
-          destination: test-prod.*-topic
+          destination: test-prod.*-topic,foo
           group: test-prod-group
           consumer:
             batch-mode: true
